@@ -27,20 +27,17 @@ class Student
 
   def save
     sql = <<-SQL
-      INSERT INTO songs (name, album)
+      INSERT INTO students (name, grade)
       VALUES (?, ?)
     SQL
-
-    DB[:conn].execute(sql, self.name, self.album)
-
-    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM songs")[0][0]
-
+    DB[:conn].execute(sql, self.name, self.grade)
+    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
   end
 
-  def self.create(name, album)
-    song = Song.new(name, album)
-    song.save
-    song
+  def self.create(name, grade)
+    student = Student.new(name, grade)
+    student.save
+    student
   end
 
 end
